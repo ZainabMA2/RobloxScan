@@ -1,0 +1,68 @@
+{% extends 'scanner/base.html' %}
+{% block content %}
+
+    <h1>Your Dashboard</h1>
+    <p></p>
+    <h3>Summary</h3>
+
+    <div class ="row md-6"> 
+        <div class="card">
+            <div class ="card_body">
+                <h5 class="card-title">
+                    Total Projects
+                </h5>
+                <p class="card-text">
+                    {{ projects | length }}
+                </p>
+            
+            </div>
+        </div>
+    </div>
+    <div class ="row md-6">
+        <div class="card">
+            <div class ="card_body">
+                <h5 class="card-title">
+                    Total Scans
+                </h5>
+                <p class="card-text">
+                    {{ scans | length }}
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <hr>
+<div class="card mb-4"> 
+    <div class="card-body">
+
+        <h5 class="card-title">Projects</h5>
+
+        {% for project in projects %}
+            <p>
+                <a href="{% url 'scanner:project_detail' project.pk %}">
+                    {{ project.name }}
+                </a>
+            </p>
+        {% empty %}
+            <p>No projects yet.</p>
+        {% endfor %}
+
+    </div>
+</div>
+    
+    <hr>
+<div class ="card">
+    <div class="card-body">
+        <h5 class ="card-title">Recent Scans</h5>
+        {% for scan in scans %}
+            <p>
+                <a href="{% url 'scanner:scan_result' scan.pk %}">
+                    Scan #{{ scan.pk }} - Score: {{ scan.score }}
+                </a>
+            </p>
+        {% empty %}
+            <p>No scans yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

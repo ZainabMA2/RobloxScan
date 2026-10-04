@@ -1,0 +1,35 @@
+{% extends 'scanner/base.html' %}
+{% block content %}
+    <h1 class="mb-4">
+        My Roblox Project
+    </h1>
+    <a class="btn btn-primary mb-4"
+       href ="{% url 'scanner:project_add' %}">
+        Add new project
+    </a>
+    <div class = "row">
+        {% for project in projects %}
+        <div class ="col-md-6 mb-3">
+            <div class ="card">
+                <div class ="card-body">
+                    <h5 class="card-title">
+                        {{ project.name }}
+                    </h5>
+                    <p class ="card-text">
+                        {{ project.description }}
+                    </p>
+                    <a class="btn btn-outline-primary"
+                       href="{% url 'scanner:project_detail' project.pk %}">
+                        Open Project
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>No projects yet.</p>
+    {% endfor %}
+    </div>
+
+
+{% endblock %}

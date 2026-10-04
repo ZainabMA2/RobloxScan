@@ -1,0 +1,59 @@
+{% extends 'scanner/base.html' %}
+{% block content %}
+#details:
+<div class ="card mv-4">
+    <div class="card-title">
+        <h2>
+            {{project.name}}
+        </h2>
+        <p class ="card-text">
+            {{project.description}}
+        </p>
+        <p class ="card-text">
+            Owner: {{ project.owner }}
+        </p>
+        <p class ="card-text">
+            Created: {{project.created_at}}
+        </p>
+        <a class ="btn btn-primary" 
+           href="{% url 'scanner:scan_create' project.pk %}">
+           New Scan
+        </a>
+        <a class ="btn btn-secondary" 
+           href="{% url 'scanner:project_update' project.pk %}">
+           Update
+        </a>
+        <a class ="btn btn-outline-danger " 
+           href="{% url 'scanner:project_delete' project.pk %}">
+           Delete
+        </a>       
+    </div>
+</div>
+
+    #scan history:
+<div class ="card">
+    <div class="card-body">
+        <h3 class="card-title">
+            Scan History
+        </h3>
+        {% for scan in project.scans.all %}
+            <p>
+                <a href="{% url 'scanner:scan_result' scan.pk %}">
+                    Scan #{{ scan.pk }} - Score: {{ scan.score }}
+                </a>
+            </p>
+        {% empty %}
+           <p>No scans yet.</p>
+
+        {% endfor %}
+    </div>
+</div>
+
+
+<a class="btn btn-outline-secondary"
+   href="{% url 'scanner:project_list' %}">
+    Back to Projects
+</a>
+
+{% endblock %}
+
